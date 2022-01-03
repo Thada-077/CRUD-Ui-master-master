@@ -1,0 +1,252 @@
+<!--<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="productlist">UserCrud</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="button" (click)="onOpenModal(null, 'add')"> - Add <span class="sr-only"></span></a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </nav>
+
+  
+  <div class="container">
+    <h2 class="text-center mt-5">Users List</h2>
+    <table class="table table-striped mt-5">
+      <thead>
+      <tr class="table-success">
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">First-name</th>
+        <th scope="col">Last-name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of products">
+        <th >{{product.id}}</th>
+        <td>{{product.title}}</td>
+        <td>{{product.fname}}</td>
+        <td>{{product.lname}}</td>
+        <td>{{product.address}}</td>
+        <td>
+          <a (click)="onOpenModal(user, 'edit')" class="btn btn-outline-primary" data-placement="top"
+                data-original-title="Edit">Edit</a>&nbsp;
+          <a (click)="onOpenModal(user, 'delete')" class="btn btn-outline-danger" data-placement="top"
+                data-original-title="Delete">Delete</a>
+          <button type="button" class="btn btn-outline-info" (click)="goToViewProduct(product.id)">View</button>&nbsp;
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"  aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+    <form #addproductform="ngForm" (ngSubmit)="addformsubmit(#addproductform)">
+    <div id="accordion">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <h3>Add data crud</h3>
+                </div>
+            </div>
+        </div>
+    
+        <div class="card card-default">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <a data-toggle="collapse" data-parent="#accordion">
+                        <i class="glyphicon glyphicon-search text-gold"></i>
+                        <b>เพิ่มข้อมูลตามที่หัวข้อกำหนด</b>
+                    </a>
+                </h4>
+            </div>
+            
+            <div id="collapse1" class="collapse show">
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-1 col-lg-1">
+                          <div class="form-group">
+                              <label for="id">id</label>
+                              <input type="text" class="form-control" id="id" ngModel name="id" required >
+                          </div>
+                      </div>  
+                      <div class="col-md-4 col-lg-2">
+                            <div class="form-group">
+                                <label class="control-label">title</label>
+                                <select class="form-control" ngModel name="title" id="title" required>
+                                  <option disabled>คำนำหน้า</option>
+                                  <option>เลือกคำนำหน้า</option>
+                                  <option>Miss</option>
+                                  <option>Mrs.</option>
+                                  <option>Mr.</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-lg-4">
+                            <div class="form-group">
+                                <label for="fname">First Name</label>
+                                <input type="text" class="form-control" ngModel name="fname" id="fname" required>
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-lg-5">
+                          <div class="form-group">
+                              <label for="lname">last Name</label>
+                              <input type="text" class="form-control" ngModel name="lname" id="lname" required>
+                          </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+        </div>
+  
+        <div class="card card-default">
+          <div class="card-header">
+              <h4 class="card-title">
+                  <a data-toggle="collapse" data-parent="#accordion">
+                      <i class="glyphicon glyphicon-lock text-gold"></i>
+                      <b>ข้อมูลที่อยู่</b>
+                  </a>
+              </h4>
+          </div>
+          <div id="collapse2" class="collapse show">
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <p>กรุณาใส่ข้อมูลที่อยู่ตามประเภทที่กำหนด</p>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-3 col-lg-12">
+                          <div class="form-group">
+                              <label class="address">ที่อยู่</label>
+                              <input type="text" class="form-control" ngModel name="address" id="address" required>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-4 col-lg-3">
+                        <div class="form-group">
+                            <label class="nameTh">ตำบล/เขต</label>
+                            <select class="form-control">
+                              <option disabled>เลือกตำบล/เขต</option>
+                              <option>  </option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3 col-lg-3">
+                        <div class="form-group">
+                            <label class="nameTh">อำเภอ</label>
+                            <select class="form-control">
+                              <option disabled>เลือกอำเภอของคุณ</option>
+                            </select>
+                        </div>
+                    </div>
+                      <div class="col-md-2 col-lg-3">
+                           <div class="form-group">
+                                <label for="NAME_TH">จังหวัด</label>
+                                <select class="form-control">
+                                  <option disabled>เลือกจังหวัดของคุณ</option>
+                                  <option>  </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-3">
+                          <div class="form-group">
+                              <label class="control-label">Zip Code</label>
+                              <input type="text" class="form-control" />
+                          </div>
+                      </div>
+                    </div> 
+    
+                  </div>    
+                </div>
+      </div>
+    <div class="row">
+      <div class="col-lg-12">
+          <div class="pull-right">
+              <button type="submit" [disabled]="addForm.invalid" class="btn btn-success btn-lg"><i class="fa fa-save"></i>Save</button>
+              <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+  </div>
+  </form>
+</div>
+</div>
+</div>
+  </div>
+
+
+  <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel" aria-hidden="true" data-backdrop='static'>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+                <h2 class="modal-title text-center" id="updateEmployeeModalLabel">Update User</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  
+            </div>
+    <div class="modal-body">
+        <form #editproductform="ngForm">
+      <div class="form-group">
+        <label for="id">Id User   :</label>
+        <input type="text" class="form-control" ngModel ="{{productToUpdate?.id}}" name="id" id="id" disabled>
+      </div>
+      <div class="form-group">
+        <label for="title">title   :</label>
+        <input type="text" class="form-control" ngModel ="{{productToUpdate?.title}}" name="title" id="title">
+      </div>
+      <div class="form-group">
+        <label for="fname">Frist-name   :</label>
+        <input type="text" class="form-control" ngModel ="{{productToUpdate?.fname}}" name="fname" id="fname">
+      </div>
+      <div class="form-group">
+        <label for="lname">Last-name   :</label>
+        <input type="text" class="form-control" ngModel ="{{productToUpdate?.lname}}" name="lname" id="lname">
+      </div>
+      <div class="form-group">
+        <label for="address">Address   :</label>
+        <input type="text" class="form-control" ngModel ="{{productToUpdate?.address}}" name="address" id="address">
+      </div>
+      <button type="submit" class="btn btn-outline-success">Update</button>&nbsp;
+      <button type="button" data-dismiss="modal" class="btn btn-outline-secondary">Back</button>
+    </form>
+</div>
+        </div>
+    </div>
+  </div>
+  
+
+  <div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true" data-backdrop='static'>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModelLabel">Delete Employee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete employee {{deleteBdyIdFromRemote?.fname}} {{deleteBdyIdFromRemote?.lname}}?</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button (click)="deleteProductById(deleteBdyIdFromRemote?.id)" class="btn btn-danger"
+            data-dismiss="modal">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>-->

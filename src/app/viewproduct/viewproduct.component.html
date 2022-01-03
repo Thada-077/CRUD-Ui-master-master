@@ -1,0 +1,39 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="productlist">UserCrud</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="addproduct"> - Add <span class="sr-only"></span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <h2 class="text-center mt-5">User</h2>
+  <table class="table table-striped mt-5">
+    <thead class="table-success">
+    <tr>
+      <th scope="col">User ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">First-name</th>
+      <th scope="col">Last-name</th>
+      <th scope="col">Address</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th >{{product.id}}</th>
+      <td>{{product.title}}</td>
+      <td>{{product.fname}}</td>
+      <td>{{product.lname}}</td>
+      <td>{{product.address}}</td>
+    </tr>
+
+    </tbody>
+  </table>
+  <button type="button mt-5" class="btn btn-outline-secondary" (click)="gotolist()">Back</button>
+</div>

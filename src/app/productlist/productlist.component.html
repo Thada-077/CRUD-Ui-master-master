@@ -1,0 +1,58 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="productlist">UserCrud</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <app-addproduct></app-addproduct>
+      </li>
+      <li class="nav-item active">
+        <button type="button" class="btn btn-danger" (click)="logout()">Logout</button>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="bg-image" style="background-image: url('https://i2.wp.com/www.cntpeo.go.th/wp-content/uploads/2020/11/bg.jpg?ssl=1');
+height: 100vh">
+<div class="container">
+<h2 class="text-center">Users List</h2>
+<table class="table table-striped mt-5" >
+  <thead >
+  <tr class="table-success ">
+    <th scope="col" class="border border-success">ID</th>
+    <th scope="col" class="border border-success">Title</th>
+    <th scope="col" class="border border-success">First-name</th>
+    <th scope="col" class="border border-success">Last-name</th>
+    <th scope="col" class="border border-success">Address</th>
+    <th scope="col" class="border border-success">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products">
+    <th class="border border-success">{{product.id}}</th>
+    <td class="border border-success">{{product.title}}</td>
+    <td class="border border-success">{{product.fname}}</td>
+    <td class="border border-success">{{product.lname}}</td>
+    <td class="border border-success">{{product.address}}</td>
+    <td class="border border-success">
+      <button type="button" class="btn btn-outline-info" (click)="goToViewProduct(product.id)">View</button>&nbsp;
+      <app-editproduct></app-editproduct>&nbsp;
+      <button type="button" class="btn btn-outline-danger" (click)="deleteProduct(product.id)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCountries()">
+  </ngb-pagination>
+
+  <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCountries()">
+    <option [ngValue]="2">2 items per page</option>
+    <option [ngValue]="4">4 items per page</option>
+    <option [ngValue]="6">6 items per page</option>
+  </select>
+</div>
