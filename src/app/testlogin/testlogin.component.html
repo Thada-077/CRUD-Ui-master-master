@@ -1,4 +1,5 @@
 <a href="https://front.codes/" class="logo" target="_blank">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      
 </a>
 <body>
@@ -18,18 +19,21 @@
                               <h2 class="mb-4 pb-3">Log In</h2>
                               <form #loginform="ngForm">
                               <div class="form-group">
-                                 <input type="email" name="logemail" class="form-style" class="form-control" placeholder="Your Email" id="logemail" autocomplete="off" [(ngModel)]="username" name="username" required>
-                                 <i class="fa fa-user"></i>
+                                 <input type="email" name="logemail" class="form-style" class="form-control" placeholder="Your Email" id="logemail" autocomplete="off" [(ngModel)]="username" name="username" required >
                               </div>
                               <div class="form-group mt-2">
                                  <input type="password" name="logpass" class="form-style" class="form-control" placeholder="Your Password" id="logpass" autocomplete="off" [(ngModel)]="password" name="password" required>
                                  <i class="input-icon uil uil-lock-alt"></i>
                               </div>
-                              <button (click)="checkLogin()" class="btn mt-4">Login</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                              <button (click)="checkLogin()" class="btn mt-4">Login</button>&nbsp;&nbsp;&nbsp;&nbsp;         
                            </form>
-                              <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a>
-                              </p>
                            </div>
+                           <div class="col-md-12 mt-5">
+                              <ul class="social-network social-circle">
+                                  <li><a (click)="signIn()" class="icoGoogle" title="Google +"><i class="fab fa-google-plus"></i></a></li>
+                                  <li><a (click)="facebookSignin()" class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                              </ul>
+                          </div>
                         </div>
                      </div>
 
@@ -40,7 +44,7 @@
                               <form  #loginform="ngForm" (ngSubmit)="registerUser()">
                                  <div class="form-group">
                                     <input type="text" name="logname" class="form-style" placeholder="username" id="logname" autocomplete="off"[(ngModel)]="user.userName">
-                                    <i class="input-icon uil uil-user"></i>
+                                    <i class="fa fa-user icon"></i>
                                  </div>
                                  <div class="form-group mt-2">
                                     <input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off" [(ngModel)]="user.emailId">

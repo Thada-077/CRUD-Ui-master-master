@@ -31,8 +31,8 @@ export class EditproductComponent implements OnInit {
       error => console.log("Exception on fetching product by id to edit")
     )
     this.getProvince();
-    this.getDistrict();
-    this.getSubdistrict()
+    this.getDistrictList();
+    this.getDistrictList()
   }
   updateformsubmit()
   {
@@ -50,13 +50,25 @@ export class EditproductComponent implements OnInit {
       data => this.provinces = data, error => console.log("Exception occurred 1"),
     )
   }
-  getDistrict() {
-    this._service.fetchDistrictFromRemote().subscribe(
+  getDistrictList(){
+    this._service.fetchDistrictAllFromRemote().subscribe(
       data => this.districts = data, error => console.log("Exception occurred 1"),
     )
   }
-  getSubdistrict() {
-    this._service.fetchsubdistrictFromRemote().subscribe(
+  getSubdistrictList(){
+    this._service.fetchSubdistrictAllFromRemote().subscribe(
+      data => this.subdistricts = data, error => console.log("Exception occurred 1"),
+    )
+  }
+  
+  getDistrict(provinceId:number) {
+    this._service.fetchDistrictFromRemote(provinceId).subscribe(
+      data => this.districts = data, error => console.log("Exception occurred 1"),
+    )
+  }
+  
+  getSubdistrict(districtId:number) {
+    this._service.fetchsubdistrictFromRemote(districtId).subscribe(
       data => this.subdistricts = data, error => console.log("Exception occurred 1"),
     )
   }

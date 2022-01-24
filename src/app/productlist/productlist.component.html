@@ -19,7 +19,7 @@
 height: 100vh">
 <div class="container">
 <h2 class="text-center">Users List</h2>
-<table class="table table-striped mt-5" >
+<table class="table table-striped mt-5" datatable [dtOptions]="dtOptions">
   <thead >
   <tr class="table-success ">
     <th scope="col" class="border border-success">ID</th>
@@ -39,20 +39,10 @@ height: 100vh">
     <td class="border border-success">{{product.address}}</td>
     <td class="border border-success">
       <button type="button" class="btn btn-outline-info" (click)="goToViewProduct(product.id)">View</button>&nbsp;
-      <app-editproduct></app-editproduct>&nbsp;
+      <app-editproduct (click)="goToUpdateProduct(product.id)"></app-editproduct>&nbsp;
       <button type="button" class="btn btn-outline-danger" (click)="deleteProduct(product.id)">Delete</button>
     </td>
   </tr>
   </tbody>
 </table>
-</div>
-<div class="d-flex justify-content-between p-2">
-  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCountries()">
-  </ngb-pagination>
-
-  <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCountries()">
-    <option [ngValue]="2">2 items per page</option>
-    <option [ngValue]="4">4 items per page</option>
-    <option [ngValue]="6">6 items per page</option>
-  </select>
 </div>

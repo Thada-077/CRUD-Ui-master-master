@@ -1,6 +1,7 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
+import { data } from 'jquery';
 import Swal from 'sweetalert2';
 import { Address } from '../address';
 import { District } from '../district';
@@ -16,17 +17,21 @@ import { Subdistrict } from '../subdistrict';
 })
 export class AddproductComponent implements OnInit {
   product = new Product();
+  
   provinces: Array<Province> = [];
   districts: Array<District> = [];
   subdistricts: Array<Subdistrict> = [];
   addresss: Array<Address> = [];
 
+  provinceNo : number;
+  districtNo : number;
+
   constructor(private _route: Router,private _service: NgserviceService) { }
 
   ngOnInit(): void {
     this.getProvince();
-    this.getDistrict();
-    this.getSubdistrict()
+    this.getDistrictList();
+    this.getDistrictList()
   }
 
 addformsubmit()
@@ -36,7 +41,9 @@ this._service.addToRemote(this.product).subscribe
   data =>{
     Swal.fire('Thank you...', 'You submitted succesfully!', 'success')  
     console.log("Data added successfully");
-    this._route.navigate(['productlist']);
+    setTimeout(() => {
+      window.location.reload();
+   }, 2000);
   },
   error =>console.log("Error")
 )
@@ -51,13 +58,26 @@ getProvince() {
     data => this.provinces = data, error => console.log("Exception occurred 1"),
   )
 }
-getDistrict() {
-  this._service.fetchDistrictFromRemote().subscribe(
+
+getDistrictList(){
+  this._service.fetchDistrictAllFromRemote().subscribe(
     data => this.districts = data, error => console.log("Exception occurred 1"),
   )
 }
-getSubdistrict() {
-  this._service.fetchsubdistrictFromRemote().subscribe(
+getSubdistrictList(){
+  this._service.fetchSubdistrictAllFromRemote().subscribe(
+    data => this.subdistricts = data, error => console.log("Exception occurred 1"),
+  )
+}
+
+getDistrict(provinceId:number) {
+  this._service.fetchDistrictFromRemote(provinceId).subscribe(
+    data => this.districts = data, error => console.log("Exception occurred 1"),
+  )
+}
+
+getSubdistrict(districtId:number) {
+  this._service.fetchsubdistrictFromRemote(districtId).subscribe(
     data => this.subdistricts = data, error => console.log("Exception occurred 1"),
   )
 }

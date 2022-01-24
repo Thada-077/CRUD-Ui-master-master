@@ -22,6 +22,18 @@ export class AuthenticationService {
       );
   }
 
+  facebookAuth(authToken){
+    return this.httpClient
+      .post<any>("http://localhost:8088/authenticate", { authToken })
+      .pipe(
+        map(data => {
+          let accessToken = "Bearer " + data.authToken;
+          sessionStorage.setItem("authToken", accessToken)
+          return data;
+        })
+      )
+  }
+
   isUserLoggedIn() {
     let user = sessionStorage.getItem("username");
     console.log(!(user === null));

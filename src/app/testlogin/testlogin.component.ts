@@ -1,9 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgserviceService } from '../ngservice.service';
 import { AuthenticationService } from '../service/authentication.service';
 import { User } from '../user';
 import Swal from 'sweetalert2';
+import { GoogleSigninService } from '../service/google-signin.service';
+import { FormGroup } from '@angular/forms';
+import { SocialAuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 
 @Component({
   selector: 'app-testlogin',
@@ -18,12 +21,28 @@ export class TestloginComponent implements OnInit {
 
   user = new User();
   msg='';
+
+  usergoogle: gapi.auth2.GoogleUser
   
   @Input() error: string | null;
 
-  constructor(private router: Router,private loginservice: AuthenticationService,private _service: NgserviceService) { }
+  myForm!: FormGroup;
+  userFace!: SocialUser;
+  isSignedin!: boolean;
+
+  constructor(private router: Router,private loginservice: AuthenticationService,private _service: NgserviceService,private signInService: GoogleSigninService, private ref : ChangeDetectorRef, private socialAuthService: SocialAuthService) { }
 
   ngOnInit(): void {
+    this.signInService.observable().subscribe (user => {
+      this.usergoogle = user
+      this.ref.detectChanges()
+    })
+
+    this.socialAuthService.authState.subscribe((userFace) => {
+      this.userFace = userFace;
+      this.isSignedin = (userFace != null);
+      console.log(this.userFace);
+    });
   }
 
   checkLogin() {
@@ -35,11 +54,21 @@ export class TestloginComponent implements OnInit {
       error => {
         this.invalidLogin = true
         this.error = error.message;
-
       }
     )
     );
 
+  }
+  //google login
+  signIn(){
+    this.signInService.signIn()
+    this.router.navigate([''])
+  }
+  
+  //facebook login
+  facebookSignin(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.router.navigate([''])
   }
 
   public registerUser() {

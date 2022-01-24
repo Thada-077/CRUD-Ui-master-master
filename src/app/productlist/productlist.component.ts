@@ -27,10 +27,17 @@ export class ProductlistComponent implements OnInit {
 
   user: string;
 
+  dtOptions: DataTables.Settings = {};
+
   ngOnInit(): void {
     this.getProducts();
-   //this.user = this.isUserLoggedIn('User');
     this.refreshCountries();
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      lengthMenu : [5, 10, 25],
+      processing: true
+    };
   }
   
   refreshCountries() {
@@ -59,7 +66,7 @@ export class ProductlistComponent implements OnInit {
 
   goToUpdateProduct(id: number) {
     console.log("id: "+ id);
-    this._route.navigate(['/editproduct', id]);
+    this._route.navigate(['/productlist', id]);
   }
 
 
@@ -98,22 +105,6 @@ export class ProductlistComponent implements OnInit {
     }  
   }) 
 }
-
-//   isUserLoggedIn(User: string): string {
-//     User = localStorage.getItem(User);
-//     if (User === null) {
-//       Swal.fire({
-//         icon: 'error',  
-//         text: 'Something went wrong!', 
-//         position: 'center',
-//         title: 'Please Login!',
-//         showConfirmButton: false,
-//         timer: 2000,
-//       });
-//     this._route.navigate(['/login'])
-//     }
-//     return User;
-// }
 
 logout() {
   localStorage.clear();

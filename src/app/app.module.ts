@@ -16,6 +16,8 @@ import { UserComponent } from './user/user.component';
 import { MaterialExampleModule } from 'src/material.module';
 import { TestloginComponent } from './testlogin/testlogin.component';
 import { BasicAuthHtppInterceptorService } from './service/basic-auth-interceptor.service';
+import {DataTablesModule} from 'angular-datatables';
+import { FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -36,8 +38,24 @@ import { BasicAuthHtppInterceptorService } from './service/basic-auth-intercepto
     FormsModule,
     BrowserAnimationsModule,
     MaterialExampleModule,
+    DataTablesModule,
+    SocialLoginModule
   ],
-  providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true }],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: BasicAuthHtppInterceptorService, multi: true } , 
+    { provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider(
+            '213138361026097'
+          )
+        }
+      ]
+    } as SocialAuthServiceConfig,
+  }
+],
   bootstrap: [AppComponent],
   schemas:[ CUSTOM_ELEMENTS_SCHEMA ]
 })

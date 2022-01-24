@@ -31,11 +31,17 @@ export class NgserviceService {
   fetchProvinceFromRemote(): Observable<any>{
     return this._http.get<any>('http://localhost:8088/address/getProvince');
   }
-  fetchDistrictFromRemote(): Observable<any>{
-    return this._http.get<any>('http://localhost:8088/getDistrict/');
+  fetchDistrictAllFromRemote(): Observable<any>{
+    return this._http.get<any>('http://localhost:8088/address/getDistrictAll');
   }
-  fetchsubdistrictFromRemote(): Observable<any>{
-    return this._http.get<any>('http://localhost:8088/getsubdistrict');
+  fetchDistrictFromRemote(id:number): Observable<any>{
+    return this._http.get<any>('http://localhost:8088/address/getDistrict/'+id);
+  }
+  fetchSubdistrictAllFromRemote(): Observable<any>{
+    return this._http.get<any>('http://localhost:8088/address/getSubdistrictAll');
+  }
+  fetchsubdistrictFromRemote(id:number): Observable<any>{
+    return this._http.get<any>('http://localhost:8088/address/getSubdistrict/' + id);
   }
   public loginUserFromRemote(user: User):Observable<any>{
     return this._http.post<any>("http://localhost:8088/login",user)
